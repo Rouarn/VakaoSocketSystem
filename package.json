@@ -1,0 +1,56 @@
+{
+  "name": "@vakao-ui/socket-system",
+  "version": "0.0.1",
+  "description": "Lightweight, type-safe socket system based on socket.io-client (no framework)",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./socketManager": {
+      "types": "./dist/socketManager.d.ts",
+      "import": "./dist/socketManager.js"
+    },
+    "./useSocket": {
+      "types": "./dist/useSocket.d.ts",
+      "import": "./dist/useSocket.js"
+    },
+    "./useChatSocket": {
+      "types": "./dist/useChatSocket.d.ts",
+      "import": "./dist/useChatSocket.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepare": "pnpm run build",
+    "prepublishOnly": "pnpm run build",
+    "pack": "pnpm pack",
+    "publish:public": "pnpm publish --access public --no-git-checks",
+    "publish:dry": "pnpm publish --access public --dry-run --no-git-checks"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "keywords": [
+    "socket.io",
+    "websocket",
+    "typescript",
+    "chat",
+    "reconnect"
+  ]
+}
