@@ -1,44 +1,66 @@
-import { socketManager } from "./socketManager";
 /**
- * 顶层简洁 API 暴露
- * 提供连接、断开、消息发送与消息监听接口。
+ * @vakao-ui/socket-system
+ *
+ * 基于 socket.io-client 的轻量、类型安全、无框架依赖的 Socket 库。
+ *
+ * 统一入口，所有能力都从一个 {@link SocketManager} 实例获得：
+ *
+ * @example
+ * ```ts
+ * import { createSocket } from "@vakao-ui/socket-system";
+ *
+ * const socket = createSocket({
+ *   url: "https://socket.example.com",
+ *   namespace: "/chat",
+ *   auth: { token: "your-jwt-token" },
+ * });
+ *
+ * const offMessage = socket.onMessage(message => console.log(message));
+ *
+ * await socket.connect();
+ * await socket.joinRoom("room-1", "user-123");
+ * await socket.sendMessage("room-1", "hello");
+ *
+ * offMessage();
+ * await socket.leaveRoom("room-1");
+ * socket.disconnect();
+ * ```
  */
 
-/** 建立 Socket 连接 */
-export function connect(): Promise<void> {
-  return socketManager.connect();
-}
+// 核心
+export { SocketManager, createSocket } from "./SocketManager.ts";
+export type { SocketManagerDependencies } from "./SocketManager.ts";
 
-/** 断开 Socket 连接 */
-export function disconnect(): void {
-  return socketManager.disconnect();
-}
-
-/**
- * 发送文本消息
- * @param roomId 目标房间ID
- * @param content 文本内容
- */
-export function sendMessage(roomId: string, content: string): Promise<void> {
-  return socketManager.sendMessage(roomId, content);
-}
-
-/**
- * 监听服务端消息事件（标准化消息结构）
- * @returns 取消订阅函数
- */
-export function onMessage(callback: (...args: unknown[]) => void): () => void {
-  socketManager.on("message", callback);
-  return () => socketManager.off("message", callback);
-}
-
-/** 错误与类型导出 */
-export { SocketError, SocketErrorType, SocketManager } from "./socketManager";
+// 聊天门面
+export { createChatSocket } from "./chat.ts";
 export type {
+  ChatMessage,
+  ChatMessageStatus,
+  ChatSocket,
+  ChatSocketOptions,
+} from "./chat.ts";
+
+// 错误
+export { SocketError, SocketErrorType, isSocketError } from "./errors.ts";
+
+// 协议常量与事件类型
+export { ClientCommand, SocketEvent } from "./events.ts";
+export type { SocketListenerMap } from "./events.ts";
+
+// 传输层扩展点
+export { socketIoFactory, TransportEvent } from "./transport.ts";
+export type { SocketFactory, SocketLike } from "./transport.ts";
+
+// 数据类型与扩展点
+export type {
+  AckResponse,
   ConnectionInfo,
-  EventCallback,
+  EventListener,
   MessageData,
-  RoomResponse,
-  SocketConfig,
+  RoomEventPayload,
+  Scheduler,
   ServerRoomItem,
-} from "./socketManager";
+  SocketConfig,
+  SocketStatus,
+  TransportOptions,
+} from "./types.ts";
