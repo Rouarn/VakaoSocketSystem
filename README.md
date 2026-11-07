@@ -14,7 +14,7 @@
 
 ```bash
 pnpm add socket.io-client   # 运行时唯一依赖
-pnpm add @vakao-ui/socket-system
+pnpm add @vakao/socket-system
 ```
 
 要求 Node.js >= 18（仅开发/测试时需要；库本身可在现代浏览器中使用）。
@@ -22,7 +22,7 @@ pnpm add @vakao-ui/socket-system
 ## 快速开始
 
 ```ts
-import { createSocket } from "@vakao-ui/socket-system";
+import { createSocket } from "@vakao/socket-system";
 
 // 1. 创建实例（此时不会建立连接）
 const socket = createSocket({
@@ -140,7 +140,7 @@ socket.clearListeners();
 所有可预期失败都抛出 `SocketError`，可按 `type` 程序化分支处理：
 
 ```ts
-import { SocketError, SocketErrorType, isSocketError } from "@vakao-ui/socket-system";
+import { SocketError, SocketErrorType, isSocketError } from "@vakao/socket-system";
 
 try {
   await socket.sendMessage("room-1", "hello");
@@ -179,7 +179,7 @@ try {
 在 `SocketManager` 之上提供面向聊天 UI 的轻量封装（无状态、无单例，必须显式传入管理器实例）：
 
 ```ts
-import { createSocket, createChatSocket } from "@vakao-ui/socket-system";
+import { createSocket, createChatSocket } from "@vakao/socket-system";
 
 const socket = createSocket({ url: "https://socket.example.com", userId: "user-1" });
 const chat = createChatSocket(socket, { selfId: "user-1" });
@@ -262,7 +262,7 @@ scheduler.advance(5000);            // 同步触发任何到期定时器，无�
 
 ### 前置准备
 
-- 包名为 Scoped（`@vakao-ui/socket-system`），公开发布需 `--access public`
+- 包名为 Scoped（`@vakao/socket-system`），公开发布需 `--access public`
 - 登录：`pnpm login`
 - 可选：`pnpm config set registry https://registry.npmjs.org/`
 

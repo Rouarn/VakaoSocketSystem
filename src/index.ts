@@ -1,5 +1,5 @@
 /**
- * @vakao-ui/socket-system
+ * @vakao/socket-system
  *
  * 基于 socket.io-client 的轻量、类型安全、无框架依赖的 Socket 库。
  *
@@ -7,7 +7,7 @@
  *
  * @example
  * ```ts
- * import { createSocket } from "@vakao-ui/socket-system";
+ * import { createSocket } from "@vakao/socket-system";
  *
  * const socket = createSocket({
  *   url: "https://socket.example.com",

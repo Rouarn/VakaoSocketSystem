@@ -1,5 +1,5 @@
 {
-  "name": "@vakao-ui/socket-system",
+  "name": "@vakao/socket-system",
   "version": "0.0.2",
   "description": "Lightweight, type-safe socket system based on socket.io-client (no framework)",
   "type": "module",
